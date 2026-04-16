@@ -6,15 +6,15 @@ use Illuminate\Contracts\Support\Arrayable;
 
 interface BrowserContract extends Arrayable
 {
-    public function getName(): string;
+    public function name(): string;
 
-    public function getShortName(): ?string;
+    public function shortName(): ?string;
 
-    public function getVersion(): ?string;
+    public function version(): ?string;
 
-    public function getFamily(): ?string;
+    public function family(): ?string;
 
-    public function getEngine(): ?string;
+    public function engine(): ?string;
 
-    public function getEngineVersion(): ?string;
+    public function engineVersion(): ?string;
 }

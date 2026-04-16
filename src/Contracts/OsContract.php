@@ -6,13 +6,13 @@ use Illuminate\Contracts\Support\Arrayable;
 
 interface OsContract extends Arrayable
 {
-    public function getName(): string;
+    public function name(): string;
 
-    public function getShortName(): ?string;
+    public function shortName(): ?string;
 
-    public function getVersion(): ?string;
+    public function version(): ?string;
 
-    public function getFamily(): ?string;
+    public function family(): ?string;
 
-    public function getPlatform(): ?string;
+    public function platform(): ?string;
 }

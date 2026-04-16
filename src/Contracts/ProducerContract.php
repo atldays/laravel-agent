@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Arrayable;
 
 interface ProducerContract extends Arrayable
 {
-    public function getName(): ?string;
+    public function name(): ?string;
 
-    public function getUrl(): ?UrlContract;
+    public function url(): ?UrlContract;
 }

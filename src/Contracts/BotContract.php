@@ -7,11 +7,11 @@ use Illuminate\Contracts\Support\Arrayable;
 
 interface BotContract extends Arrayable
 {
-    public function getName(): string;
+    public function name(): string;
 
-    public function getCategory(): ?string;
+    public function category(): ?string;
 
-    public function getUrl(): ?UrlContract;
+    public function url(): ?UrlContract;
 
-    public function getProducer(): ?ProducerContract;
+    public function producer(): ?ProducerContract;
 }

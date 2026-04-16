@@ -18,24 +18,24 @@ class Device extends Data implements DeviceContract
         public readonly ?string $model = null
     ) {}
 
-    public function getType(): DeviceType
+    public function type(): DeviceType
     {
         $type = Str::snake($this->device);
 
         return DeviceType::hasValue($type) ? DeviceType::from($type) : DeviceType::Desktop;
     }
 
-    public function getDevice(): string
+    public function device(): string
     {
         return $this->device;
     }
 
-    public function getBrand(): ?string
+    public function brand(): ?string
     {
         return $this->brand;
     }
 
-    public function getModel(): ?string
+    public function model(): ?string
     {
         return $this->model;
     }

@@ -6,15 +6,15 @@ use Illuminate\Contracts\Support\Arrayable;
 
 interface AgentContract extends Arrayable
 {
-    public function getUserAgent(): string;
+    public function userAgent(): string;
 
-    public function getHash(): string;
+    public function hash(): string;
 
-    public function getOs(): ?OsContract;
+    public function os(): ?OsContract;
 
-    public function getBrowser(): ?BrowserContract;
+    public function browser(): ?BrowserContract;
 
-    public function getBot(): ?BotContract;
+    public function bot(): ?BotContract;
 
-    public function getDevice(): ?DeviceContract;
+    public function device(): ?DeviceContract;
 }

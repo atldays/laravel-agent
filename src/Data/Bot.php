@@ -24,22 +24,22 @@ class Bot extends Data implements BotContract
         public readonly ?Producer $producer = null,
     ) {}
 
-    public function getName(): string
+    public function name(): string
     {
         return $this->name;
     }
 
-    public function getCategory(): ?string
+    public function category(): ?string
     {
         return $this->category;
     }
 
-    public function getUrl(): ?UrlContract
+    public function url(): ?UrlContract
     {
         return $this->url;
     }
 
-    public function getProducer(): ?ProducerContract
+    public function producer(): ?ProducerContract
     {
         return $this->producer;
     }

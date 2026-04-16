@@ -18,12 +18,12 @@ class Producer extends Data implements ProducerContract
         public readonly ?UrlContract $url = null,
     ) {}
 
-    public function getName(): ?string
+    public function name(): ?string
     {
         return $this->name;
     }
 
-    public function getUrl(): ?UrlContract
+    public function url(): ?UrlContract
     {
         return $this->url;
     }

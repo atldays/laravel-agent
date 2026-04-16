@@ -22,32 +22,32 @@ class Browser extends Data implements BrowserContract
         public readonly ?string $engineVersion = null,
     ) {}
 
-    public function getName(): string
+    public function name(): string
     {
         return $this->name;
     }
 
-    public function getShortName(): ?string
+    public function shortName(): ?string
     {
         return $this->shortName;
     }
 
-    public function getVersion(): ?string
+    public function version(): ?string
     {
         return $this->version;
     }
 
-    public function getFamily(): ?string
+    public function family(): ?string
     {
         return $this->family;
     }
 
-    public function getEngine(): ?string
+    public function engine(): ?string
     {
         return $this->engine;
     }
 
-    public function getEngineVersion(): ?string
+    public function engineVersion(): ?string
     {
         return $this->engineVersion;
     }

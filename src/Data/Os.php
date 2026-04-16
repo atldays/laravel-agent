@@ -21,27 +21,27 @@ class Os extends Data implements OsContract
         public readonly ?string $platform = null
     ) {}
 
-    public function getName(): string
+    public function name(): string
     {
         return $this->name;
     }
 
-    public function getShortName(): ?string
+    public function shortName(): ?string
     {
         return $this->shortName;
     }
 
-    public function getVersion(): ?string
+    public function version(): ?string
     {
         return $this->version;
     }
 
-    public function getFamily(): ?string
+    public function family(): ?string
     {
         return $this->family;
     }
 
-    public function getPlatform(): ?string
+    public function platform(): ?string
     {
         return $this->platform;
     }

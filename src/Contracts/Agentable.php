@@ -4,5 +4,5 @@ namespace Atldays\Agent\Contracts;
 
 interface Agentable
 {
-    public function getAgent(): AgentContract;
+    public function agent(): AgentContract;
 }

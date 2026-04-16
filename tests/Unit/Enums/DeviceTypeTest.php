@@ -1,15 +1,16 @@
 <?php
 
-namespace Atldays\Agent\Tests;
+namespace Atldays\Agent\Tests\Unit\Enums;
 
 use Atldays\Agent\Enums\DeviceType;
-use PHPUnit\Framework\TestCase;
+use Atldays\Agent\Tests\TestCase;
 
 class DeviceTypeTest extends TestCase
 {
     public function test_it_knows_existing_values(): void
     {
         $this->assertTrue(DeviceType::hasValue('desktop'));
+        $this->assertTrue(DeviceType::hasValue('portable_media_player'));
         $this->assertFalse(DeviceType::hasValue('unknown'));
     }
 
@@ -17,5 +18,6 @@ class DeviceTypeTest extends TestCase
     {
         $this->assertContains('desktop', DeviceType::toArray());
         $this->assertContains('smartphone', DeviceType::toArray());
+        $this->assertContains('portable_media_player', DeviceType::toArray());
     }
 }

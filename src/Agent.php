@@ -10,7 +10,7 @@ use Atldays\Agent\Data\Os;
 use DeviceDetector\Cache\LaravelCache;
 use DeviceDetector\DeviceDetector;
 
-final readonly class Detector implements AgentContract
+final readonly class Agent implements AgentContract
 {
     private DeviceDetector $deviceDetector;
 
@@ -24,17 +24,17 @@ final readonly class Detector implements AgentContract
         return tap($this->deviceDetector, static fn (DeviceDetector $detector) => $detector->parse());
     }
 
-    public function getUserAgent(): string
+    public function userAgent(): string
     {
         return $this->userAgent;
     }
 
-    public function getHash(): string
+    public function hash(): string
     {
         return hash('sha256', $this->userAgent);
     }
 
-    public function getOs(): ?Os
+    public function os(): ?Os
     {
         if (!is_array($os = $this->detector()->getOs()) || empty($os)) {
             return null;
@@ -43,7 +43,7 @@ final readonly class Detector implements AgentContract
         return Os::from($os);
     }
 
-    public function getBrowser(): ?Browser
+    public function browser(): ?Browser
     {
         if (!is_array($browser = $this->detector()->getClient()) || empty($browser)) {
             return null;
@@ -52,7 +52,7 @@ final readonly class Detector implements AgentContract
         return Browser::from($browser);
     }
 
-    public function getBot(): ?Bot
+    public function bot(): ?Bot
     {
         if (!is_array($bot = $this->detector()->getBot()) || empty($bot)) {
             return null;
@@ -61,7 +61,7 @@ final readonly class Detector implements AgentContract
         return Bot::from($bot);
     }
 
-    public function getDevice(): ?Device
+    public function device(): ?Device
     {
         if (is_null(($detector = $this->detector())->getDevice())) {
             return null;
@@ -77,12 +77,12 @@ final readonly class Detector implements AgentContract
     public function toArray(): array
     {
         return [
-            'user_agent' => $this->getUserAgent(),
-            'hash' => $this->getHash(),
-            'os' => $this->getOs()?->toArray(),
-            'browser' => $this->getBrowser()?->toArray(),
-            'bot' => $this->getBot()?->toArray(),
-            'device' => $this->getDevice()?->toArray(),
+            'user_agent' => $this->userAgent(),
+            'hash' => $this->hash(),
+            'os' => $this->os()?->toArray(),
+            'browser' => $this->browser()?->toArray(),
+            'bot' => $this->bot()?->toArray(),
+            'device' => $this->device()?->toArray(),
         ];
     }
 }
