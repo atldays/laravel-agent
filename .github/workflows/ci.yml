@@ -19,7 +19,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.4"
+          php-version: "8.3"
           coverage: none
 
       - name: Cache Composer dependencies
@@ -28,9 +28,9 @@ jobs:
           path: |
             ~/.composer/cache/files
             ~/.cache/composer/files
-          key: ${{ runner.os }}-php-8.4-composer-${{ hashFiles('composer.json') }}
+          key: ${{ runner.os }}-php-8.3-composer-${{ hashFiles('composer.json', 'composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-php-8.4-composer-
+            ${{ runner.os }}-php-8.3-composer-
 
       - name: Install dependencies
         run: composer update --prefer-dist --no-interaction
@@ -49,16 +49,16 @@ jobs:
           - php: "8.2"
             laravel: "^11.0"
             testbench: "^9.0"
-            phpunit: "^11.0"
+            phpunit: "^10.5|^11.5"
           - php: "8.3"
             laravel: "^12.0"
             testbench: "^10.0"
-            phpunit: "^11.0|^12.0"
-          - php: "8.4"
+            phpunit: "^11.5|^12.0"
+          - php: "8.3"
             laravel: "^13.0"
             testbench: "^11.0"
             phpunit: "^12.5"
-          - php: "8.5"
+          - php: "8.4"
             laravel: "^13.0"
             testbench: "^11.0"
             phpunit: "^12.5"
@@ -79,7 +79,7 @@ jobs:
           path: |
             ~/.composer/cache/files
             ~/.cache/composer/files
-          key: ${{ runner.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('composer.json') }}
+          key: ${{ runner.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ hashFiles('composer.json', 'composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-
             ${{ runner.os }}-php-${{ matrix.php }}-
