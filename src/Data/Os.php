@@ -70,8 +70,8 @@ class Os extends Data implements OsContract
 
     public function isLinux(): bool
     {
-        return $this->matchesAny($this->name(), ['linux'])
-            || $this->matchesAny($this->family(), ['linux']);
+        return $this->matchesAny($this->name(), ['linux', 'gnu/linux'])
+            || $this->matchesAny($this->family(), ['linux', 'gnu/linux']);
     }
 
     public function isMacOs(): bool
