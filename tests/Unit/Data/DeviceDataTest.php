@@ -15,6 +15,12 @@ class DeviceDataTest extends TestCase
         $this->assertSame(DeviceType::Smartphone, $device->type());
         $this->assertSame('Apple', $device->brand());
         $this->assertSame('iPhone', $device->model());
+        $this->assertTrue($device->isMobile());
+        $this->assertTrue($device->isPhone());
+        $this->assertFalse($device->isTablet());
+        $this->assertFalse($device->isDesktop());
+        $this->assertTrue($device->isApple());
+        $this->assertTrue($device->isIphone());
     }
 
     public function test_it_falls_back_to_desktop_for_unknown_type(): void
@@ -22,5 +28,7 @@ class DeviceDataTest extends TestCase
         $device = new Device('Spaceship');
 
         $this->assertSame(DeviceType::Desktop, $device->type());
+        $this->assertTrue($device->isDesktop());
+        $this->assertFalse($device->isMobile());
     }
 }

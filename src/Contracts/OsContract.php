@@ -15,4 +15,16 @@ interface OsContract extends Arrayable
     public function family(): ?string;
 
     public function platform(): ?string;
+
+    public function isApple(): bool;
+
+    public function isAndroid(): bool;
+
+    public function isIos(): bool;
+
+    public function isLinux(): bool;
+
+    public function isMacOs(): bool;
+
+    public function isWindows(): bool;
 }

@@ -6,8 +6,8 @@ use Atldays\Agent\AgentFactory;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Atldays\Agent\Agent detect(string $userAgent)
- * @method static \Atldays\Agent\Agent request(?\Illuminate\Http\Request $request = null)
+ * @method static \Atldays\Agent\Contracts\AgentContract detect(string $userAgent)
+ * @method static \Atldays\Agent\Contracts\AgentContract request(?\Illuminate\Http\Request $request = null)
  * @method static string userAgent()
  * @method static string hash()
  * @method static ?\Atldays\Agent\Contracts\OsContract os()

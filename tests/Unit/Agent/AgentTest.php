@@ -65,4 +65,49 @@ class AgentTest extends TestCase
             'device' => null,
         ], $agent->toArray());
     }
+
+    public function test_it_exposes_dto_helper_methods(): void
+    {
+        $chrome = new Agent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36');
+        $iphone = new Agent('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1');
+        $bot = new Agent('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)');
+
+        $this->assertTrue($chrome->device()?->isDesktop());
+        $this->assertTrue($chrome->os()?->isWindows());
+        $this->assertTrue($chrome->browser()?->isChrome());
+        $this->assertFalse($chrome->isBot());
+
+        $this->assertTrue($iphone->device()?->isMobile());
+        $this->assertTrue($iphone->device()?->isPhone());
+        $this->assertTrue($iphone->device()?->isApple() || $iphone->os()?->isApple());
+        $this->assertTrue($iphone->os()?->isIos());
+        $this->assertTrue($iphone->device()?->isIphone());
+        $this->assertTrue($iphone->browser()?->isSafari());
+        $this->assertFalse($iphone->os()?->isAndroid());
+
+        $this->assertTrue($bot->isBot());
+    }
+
+    public function test_it_detects_tablet_and_not_iphone_for_ipad_user_agent(): void
+    {
+        $agent = new Agent('Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1');
+
+        $this->assertTrue($agent->device()?->isMobile());
+        $this->assertTrue($agent->device()?->isTablet());
+        $this->assertFalse($agent->device()?->isPhone());
+        $this->assertFalse($agent->device()?->isIphone());
+        $this->assertTrue($agent->device()?->isApple() || $agent->os()?->isApple());
+        $this->assertTrue($agent->browser()?->isSafari());
+    }
+
+    public function test_it_detects_android_device(): void
+    {
+        $agent = new Agent('Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36');
+
+        $this->assertTrue($agent->device()?->isMobile());
+        $this->assertTrue($agent->device()?->isPhone());
+        $this->assertTrue($agent->os()?->isAndroid());
+        $this->assertFalse($agent->device()?->isApple() || $agent->os()?->isApple());
+        $this->assertFalse($agent->os()?->isIos());
+    }
 }

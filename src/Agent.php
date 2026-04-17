@@ -9,11 +9,15 @@ use Atldays\Agent\Data\Device;
 use Atldays\Agent\Data\Os;
 use DeviceDetector\Cache\LaravelCache;
 use DeviceDetector\DeviceDetector;
+use Exception;
 
 final readonly class Agent implements AgentContract
 {
     private DeviceDetector $deviceDetector;
 
+    /**
+     * @throws Exception
+     */
     public function __construct(public string $userAgent)
     {
         $this->deviceDetector = tap(new DeviceDetector($this->userAgent), static fn (DeviceDetector $detector) => $detector->setCache(new LaravelCache));
@@ -72,6 +76,11 @@ final readonly class Agent implements AgentContract
             $detector->getBrandName(),
             $detector->getModel()
         );
+    }
+
+    public function isBot(): bool
+    {
+        return $this->bot() !== null;
     }
 
     public function toArray(): array

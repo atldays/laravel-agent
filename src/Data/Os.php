@@ -12,6 +12,8 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 #[MapName(SnakeCaseMapper::class)]
 class Os extends Data implements OsContract
 {
+    use Concerns\NormalizesStrings;
+
     public function __construct(
         #[Required, StringType]
         public readonly string $name,
@@ -44,5 +46,45 @@ class Os extends Data implements OsContract
     public function platform(): ?string
     {
         return $this->platform;
+    }
+
+    public function isApple(): bool
+    {
+        return $this->matchesAny($this->name(), ['ios', 'mac', 'macos'])
+            || $this->matchesAny($this->family(), ['ios', 'mac', 'macos'])
+            || $this->matchesAny($this->shortName(), ['ios', 'mac']);
+    }
+
+    public function isAndroid(): bool
+    {
+        return $this->matchesAny($this->name(), ['android'])
+            || $this->matchesAny($this->family(), ['android']);
+    }
+
+    public function isIos(): bool
+    {
+        return $this->matchesAny($this->name(), ['ios'])
+            || $this->matchesAny($this->family(), ['ios'])
+            || $this->matchesAny($this->shortName(), ['ios']);
+    }
+
+    public function isLinux(): bool
+    {
+        return $this->matchesAny($this->name(), ['linux'])
+            || $this->matchesAny($this->family(), ['linux']);
+    }
+
+    public function isMacOs(): bool
+    {
+        return $this->matchesAny($this->name(), ['mac', 'macos'])
+            || $this->matchesAny($this->family(), ['mac', 'macos'])
+            || $this->matchesAny($this->shortName(), ['mac']);
+    }
+
+    public function isWindows(): bool
+    {
+        return $this->matchesAny($this->name(), ['windows'])
+            || $this->matchesAny($this->family(), ['windows'])
+            || $this->matchesAny($this->shortName(), ['win']);
     }
 }

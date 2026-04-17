@@ -2,6 +2,7 @@
 
 namespace Atldays\Agent;
 
+use Atldays\Agent\Contracts\AgentContract;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
 
@@ -11,12 +12,12 @@ class AgentFactory
         protected Container $container,
     ) {}
 
-    public function detect(string $userAgent): Agent
+    public function detect(string $userAgent): AgentContract
     {
         return new Agent($userAgent);
     }
 
-    public function request(?Request $request = null): Agent
+    public function request(?Request $request = null): AgentContract
     {
         $request ??= $this->resolveRequest();
 

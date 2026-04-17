@@ -57,4 +57,17 @@ class AgentFactoryTest extends TestCase
 
         $this->assertSame('Googlebot', $bot?->name());
     }
+
+    public function test_it_falls_back_to_empty_user_agent_when_request_is_missing(): void
+    {
+        $this->app->offsetUnset('request');
+
+        $agent = $this->app->make(AgentFactory::class)->request();
+
+        $this->assertSame('', $agent->userAgent());
+        $this->assertNull($agent->browser());
+        $this->assertNull($agent->os());
+        $this->assertNull($agent->device());
+        $this->assertNull($agent->bot());
+    }
 }

@@ -17,4 +17,14 @@ interface BrowserContract extends Arrayable
     public function engine(): ?string;
 
     public function engineVersion(): ?string;
+
+    public function isChrome(): bool;
+
+    public function isEdge(): bool;
+
+    public function isFirefox(): bool;
+
+    public function isOpera(): bool;
+
+    public function isSafari(): bool;
 }

@@ -17,4 +17,6 @@ interface AgentContract extends Arrayable
     public function bot(): ?BotContract;
 
     public function device(): ?DeviceContract;
+
+    public function isBot(): bool;
 }
