@@ -3,40 +3,48 @@
 namespace Atldays\Agent;
 
 use Atldays\Agent\Contracts\AgentContract;
+use Exception;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
+use Illuminate\Support\Traits\ForwardsCalls;
 
 class AgentFactory
 {
+    use ForwardsCalls;
+
     public function __construct(
         protected Container $container,
     ) {}
 
+    /**
+     * @throws Exception
+     */
     public function detect(string $userAgent): AgentContract
     {
         return new Agent($userAgent);
     }
 
+    /**
+     * @throws BindingResolutionException
+     * @throws Exception
+     */
     public function request(?Request $request = null): AgentContract
     {
-        $request ??= $this->resolveRequest();
+        if ($request === null && $this->container->bound('request')) {
+            $request = $this->container->make('request');
 
-        return $this->detect((string)($request?->userAgent() ?? ''));
-    }
-
-    public function __call(string $method, array $arguments): mixed
-    {
-        return $this->request()->{$method}(...$arguments);
-    }
-
-    protected function resolveRequest(): ?Request
-    {
-        if (!$this->container->bound('request')) {
-            return null;
+            $request = $request instanceof Request ? $request : null;
         }
 
-        $request = $this->container->make('request');
+        return $this->detect($request?->userAgent() ?? '');
+    }
 
-        return $request instanceof Request ? $request : null;
+    /**
+     * @throws BindingResolutionException
+     */
+    public function __call(string $method, array $arguments): mixed
+    {
+        return $this->forwardCallTo($this->request(), $method, $arguments);
     }
 }
