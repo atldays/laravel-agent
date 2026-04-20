@@ -15,13 +15,15 @@ It gives you a comfortable Laravel-first API for working with:
 - bots
 - request user-agent strings
 
-Under the hood, the package uses [`matomo/device-detector`](https://github.com/matomo-org/device-detector), while exposing a clean developer experience through Laravel service container bindings, a request macro, a facade, model helpers, and typed DTOs powered by `spatie/laravel-data`.
+Under the hood, the package uses [`matomo/device-detector`](https://github.com/matomo-org/device-detector), while exposing a clean developer experience through Laravel service container bindings, a request macro, facades, model helpers, and typed DTOs powered by `spatie/laravel-data`.
 
 ## Features
 
 - Laravel auto-discovery support
 - `request()->agent()` request macro
-- `Agent` facade for on-demand detection
+- `Agent` facade for the current request agent
+- `AgentManager` facade for on-demand detection
+- dependency injection support via `AgentContract`
 - container binding for `AgentContract`
 - typed DTO objects for browser, OS, device, bot, and producer data
 - Eloquent cast for persisted user-agent strings
@@ -63,13 +65,14 @@ Route::get('/', function (Request $request) {
 });
 ```
 
-### Facade
+### Facades
 
 ```php
 use Atldays\Agent\Facades\Agent;
+use Atldays\Agent\Facades\AgentManager;
 
-$currentAgent = Agent::request();
-$customAgent = Agent::detect($userAgent);
+$currentAgent = AgentManager::request();
+$customAgent = AgentManager::detect($userAgent);
 
 $browser = Agent::browser();
 $os = Agent::os();
@@ -275,23 +278,23 @@ Available data methods:
 If you already have a user-agent string, you can parse it directly:
 
 ```php
-use Atldays\Agent\Facades\Agent;
+use Atldays\Agent\Facades\AgentManager;
 
-$agent = Agent::detect($userAgent);
+$agent = AgentManager::detect($userAgent);
 
 $browserName = $agent->browser()?->name();
 $isAndroid = $agent->os()?->isAndroid();
 $isMobile = $agent->device()?->isMobile();
 ```
 
-You can also resolve the factory directly:
+You can also resolve the manager directly:
 
 ```php
-use Atldays\Agent\AgentFactory;
+use Atldays\Agent\AgentManager;
 
-$factory = app(AgentFactory::class);
+$manager = app(AgentManager::class);
 
-$agent = $factory->detect($userAgent);
+$agent = $manager->detect($userAgent);
 ```
 
 ## Eloquent Integration

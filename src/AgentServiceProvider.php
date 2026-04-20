@@ -14,14 +14,11 @@ class AgentServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->singleton(AgentFactory::class);
+        $this->app->singleton(AgentManager::class);
 
-        $this->app->bind(
-            AgentContract::class,
-            fn (Application $app) => $app->make(AgentFactory::class)->request(),
-        );
+        $this->app->bind('agent', fn (Application $app) => $app->make(AgentManager::class)->request());
 
-        $this->app->alias(AgentContract::class, 'agent');
+        $this->app->alias('agent', AgentContract::class);
     }
 
     /**
@@ -29,11 +26,11 @@ class AgentServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $factory = $this->app->make(AgentFactory::class);
+        $manager = $this->app->make(AgentManager::class);
 
-        Request::macro('agent', function () use ($factory) {
+        Request::macro('agent', function () use ($manager) {
             /** @var Request $this */
-            return $factory->request($this);
+            return $manager->request($this);
         });
 
         $this->app->make(Router::class)->aliasMiddleware('agent.block-bots', BlockBots::class);

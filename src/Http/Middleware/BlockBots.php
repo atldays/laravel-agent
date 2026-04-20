@@ -2,7 +2,7 @@
 
 namespace Atldays\Agent\Http\Middleware;
 
-use Atldays\Agent\AgentFactory;
+use Atldays\Agent\AgentManager;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,11 +10,11 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class BlockBots
 {
-    public function __construct(protected AgentFactory $factory) {}
+    public function __construct(protected AgentManager $manager) {}
 
     public function handle(Request $request, Closure $next, string ...$allowedBots): Response
     {
-        $agent = $this->factory->request($request);
+        $agent = $this->manager->request($request);
 
         if (!$agent->isBot()) {
             return $next($request);
