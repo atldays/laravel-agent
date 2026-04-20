@@ -2,7 +2,7 @@
 
 namespace Atldays\Agent\Tests\Feature;
 
-use Atldays\Agent\AgentFactory;
+use Atldays\Agent\AgentManager;
 use Atldays\Agent\Contracts\AgentContract;
 use Atldays\Agent\Http\Middleware\BlockBots;
 use Atldays\Agent\Tests\TestCase;
@@ -11,10 +11,10 @@ use stdClass;
 
 class AgentServiceProviderTest extends TestCase
 {
-    public function test_it_registers_factory_as_singleton(): void
+    public function test_it_registers_manager_as_singleton(): void
     {
-        $first = $this->app->make(AgentFactory::class);
-        $second = $this->app->make(AgentFactory::class);
+        $first = $this->app->make(AgentManager::class);
+        $second = $this->app->make(AgentManager::class);
 
         $this->assertSame($first, $second);
     }

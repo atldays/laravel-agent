@@ -41,7 +41,8 @@
                 "Atldays\\Agent\\AgentServiceProvider"
             ],
             "aliases": {
-                "Agent": "Atldays\\Agent\\Facades\\Agent"
+                "Agent": "Atldays\\Agent\\Facades\\Agent",
+                "AgentManager": "Atldays\\Agent\\Facades\\AgentManager"
             }
         }
     },
